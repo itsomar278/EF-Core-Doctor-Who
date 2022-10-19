@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32630.192
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoctorWho.Db", "DoctorWho.Db.csproj", "{557B0932-BDB8-40BA-8703-2676CCABD7FE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{557B0932-BDB8-40BA-8703-2676CCABD7FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{557B0932-BDB8-40BA-8703-2676CCABD7FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{557B0932-BDB8-40BA-8703-2676CCABD7FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{557B0932-BDB8-40BA-8703-2676CCABD7FE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D74732DB-5866-4BA0-A837-ACD094831746}
+	EndGlobalSection
+EndGlobal
