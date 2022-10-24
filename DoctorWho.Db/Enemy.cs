@@ -12,13 +12,13 @@ namespace DoctorWho.Db
     {
         public  Enemy()
         {
-            Episodes = new List<Episode>();
+            EnemyEpisodes = new List<EnemyEpisode>();
         }
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int EnemyId { get; set; }
         public string EnemyName { get; set; }
         public string Describtion { get; set; }
-        public List<Episode> Episodes { get; set; }
+        public List<EnemyEpisode> EnemyEpisodes { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using DoctorWho.Db;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DoctorWho.Db.Migrations
 {
     [DbContext(typeof(DoctorWhoCoreDbContext))]
-    partial class DoctorWhoCoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221023041040_seeding")]
+    partial class seeding
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +23,21 @@ namespace DoctorWho.Db.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("CompanionEpisode", b =>
+                {
+                    b.Property<int>("CompanionsCompanionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EpisodesEpisodeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CompanionsCompanionId", "EpisodesEpisodeId");
+
+                    b.HasIndex("EpisodesEpisodeId");
+
+                    b.ToTable("CompanionEpisode");
+                });
 
             modelBuilder.Entity("DoctorWho.Db.Author", b =>
                 {
@@ -116,48 +133,6 @@ namespace DoctorWho.Db.Migrations
                             CompanionId = 5,
                             CompanionName = "Companion1",
                             WhoPayed = "Payer5"
-                        });
-                });
-
-            modelBuilder.Entity("DoctorWho.Db.CompanionEpisode", b =>
-                {
-                    b.Property<int>("CompanionId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EpisodeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CompanionId", "EpisodeId");
-
-                    b.HasIndex("EpisodeId");
-
-                    b.ToTable("CompanionsEpisodes");
-
-                    b.HasData(
-                        new
-                        {
-                            CompanionId = 1,
-                            EpisodeId = 1
-                        },
-                        new
-                        {
-                            CompanionId = 2,
-                            EpisodeId = 2
-                        },
-                        new
-                        {
-                            CompanionId = 3,
-                            EpisodeId = 3
-                        },
-                        new
-                        {
-                            CompanionId = 4,
-                            EpisodeId = 4
-                        },
-                        new
-                        {
-                            CompanionId = 5,
-                            EpisodeId = 5
                         });
                 });
 
@@ -280,48 +255,6 @@ namespace DoctorWho.Db.Migrations
                         });
                 });
 
-            modelBuilder.Entity("DoctorWho.Db.EnemyEpisode", b =>
-                {
-                    b.Property<int>("EnemyId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EpisodeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("EnemyId", "EpisodeId");
-
-                    b.HasIndex("EpisodeId");
-
-                    b.ToTable("EnemyEpisodes");
-
-                    b.HasData(
-                        new
-                        {
-                            EnemyId = 1,
-                            EpisodeId = 1
-                        },
-                        new
-                        {
-                            EnemyId = 2,
-                            EpisodeId = 2
-                        },
-                        new
-                        {
-                            EnemyId = 3,
-                            EpisodeId = 3
-                        },
-                        new
-                        {
-                            EnemyId = 4,
-                            EpisodeId = 4
-                        },
-                        new
-                        {
-                            EnemyId = 5,
-                            EpisodeId = 5
-                        });
-                });
-
             modelBuilder.Entity("DoctorWho.Db.Episode", b =>
                 {
                     b.Property<int>("EpisodeId")
@@ -428,36 +361,32 @@ namespace DoctorWho.Db.Migrations
                         });
                 });
 
-            modelBuilder.Entity("DoctorWho.Db.CompanionEpisode", b =>
+            modelBuilder.Entity("EnemyEpisode", b =>
                 {
-                    b.HasOne("DoctorWho.Db.Companion", "companion")
-                        .WithMany("CompanionEpisodes")
-                        .HasForeignKey("CompanionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("EnemiesEnemyId")
+                        .HasColumnType("int");
 
-                    b.HasOne("DoctorWho.Db.Episode", "episode")
-                        .WithMany("CompanionEpisodes")
-                        .HasForeignKey("EpisodeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("EpisodesEpisodeId")
+                        .HasColumnType("int");
 
-                    b.Navigation("companion");
+                    b.HasKey("EnemiesEnemyId", "EpisodesEpisodeId");
 
-                    b.Navigation("episode");
+                    b.HasIndex("EpisodesEpisodeId");
+
+                    b.ToTable("EnemyEpisode");
                 });
 
-            modelBuilder.Entity("DoctorWho.Db.EnemyEpisode", b =>
+            modelBuilder.Entity("CompanionEpisode", b =>
                 {
-                    b.HasOne("DoctorWho.Db.Enemy", null)
-                        .WithMany("EnemyEpisodes")
-                        .HasForeignKey("EnemyId")
+                    b.HasOne("DoctorWho.Db.Companion", null)
+                        .WithMany()
+                        .HasForeignKey("CompanionsCompanionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DoctorWho.Db.Episode", null)
-                        .WithMany("EnemyEpisodes")
-                        .HasForeignKey("EpisodeId")
+                        .WithMany()
+                        .HasForeignKey("EpisodesEpisodeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -481,31 +410,29 @@ namespace DoctorWho.Db.Migrations
                     b.Navigation("Doctor");
                 });
 
+            modelBuilder.Entity("EnemyEpisode", b =>
+                {
+                    b.HasOne("DoctorWho.Db.Enemy", null)
+                        .WithMany()
+                        .HasForeignKey("EnemiesEnemyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DoctorWho.Db.Episode", null)
+                        .WithMany()
+                        .HasForeignKey("EpisodesEpisodeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("DoctorWho.Db.Author", b =>
                 {
                     b.Navigation("Episodes");
                 });
 
-            modelBuilder.Entity("DoctorWho.Db.Companion", b =>
-                {
-                    b.Navigation("CompanionEpisodes");
-                });
-
             modelBuilder.Entity("DoctorWho.Db.Doctor", b =>
                 {
                     b.Navigation("Episodes");
-                });
-
-            modelBuilder.Entity("DoctorWho.Db.Enemy", b =>
-                {
-                    b.Navigation("EnemyEpisodes");
-                });
-
-            modelBuilder.Entity("DoctorWho.Db.Episode", b =>
-                {
-                    b.Navigation("CompanionEpisodes");
-
-                    b.Navigation("EnemyEpisodes");
                 });
 #pragma warning restore 612, 618
         }

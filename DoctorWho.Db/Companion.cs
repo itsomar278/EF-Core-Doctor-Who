@@ -12,13 +12,13 @@ namespace DoctorWho.Db
     {
         public Companion()
         {
-            Episodes = new List<Episode>();
+            CompanionEpisodes = new List<CompanionEpisode>();
         }
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int CompanionId { get; set; }
         public string CompanionName { get; set; }
         public string WhoPayed { get; set; }
-        public List<Episode> Episodes { get; set; } 
+        public List<CompanionEpisode> CompanionEpisodes { get; set; } 
     }
 }
