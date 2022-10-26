@@ -15,13 +15,13 @@ namespace DoctorWho.Db.Migrations
                                     BEGIN
                                     Select TOP 3 @HighestEnemies = CONCAT(E.EnemyName, '   ,   ', @HighestEnemies)
                                     FROM EnemyEpisodes EE
-                                    INNER JOIN Enemy E
+                                    INNER JOIN Enemies E
                                     ON E.EnemyId = EE.EnemyId
                                     GROUP BY E.EnemyName
                                     Order BY COUNT(EE.EnemyId) DESC
                                     Select TOP 3 @HighestCompanions = CONCAT(C.CompanionName, '   ,   ', @HighestCompanions)
                                     FROM Companions C
-                                    INNER JOIN CompanionEpisodes EC
+                                    INNER JOIN CompanionsEpisodes EC
                                     ON C.CompanionId = EC.CompanionId
                                     GROUP BY C.CompanionName
                                     Order BY COUNT(EC.CompanionId) DESC

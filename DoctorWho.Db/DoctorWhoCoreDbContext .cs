@@ -16,13 +16,22 @@ namespace DoctorWho.Db
         public DbSet<Episode> Episodes { get; set; }
         public DbSet<EnemyEpisode> EnemyEpisodes { get; set; }
         public DbSet<CompanionEpisode> CompanionsEpisodes { get; set; }
-
+        public string FnCompanions(int EpisodeId) => throw new NotSupportedException();
+        public string FnEnemies(int EpisodeId) => throw new NotSupportedException();
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-6PEJGCB;Initial Catalog=DoctorWhoCore;Integrated Security=True");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasDbFunction(typeof(DoctorWhoCoreDbContext)
+              .GetMethod(nameof(FnCompanions), new[] { typeof(int) }))
+              .HasName("fnCompanions");
+
+            modelBuilder.HasDbFunction(typeof(DoctorWhoCoreDbContext)
+             .GetMethod(nameof(FnEnemies), new[] { typeof(int) }))
+             .HasName("fnEnemies");
+
             modelBuilder.Entity<EnemyEpisode>().HasKey(ee => new { ee.EnemyId, ee.EpisodeId });
             modelBuilder.Entity<CompanionEpisode>().HasKey(ce => new { ce.CompanionId, ce.EpisodeId });
 
