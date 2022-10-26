@@ -9,9 +9,22 @@ namespace DoctorWho
         static void Main()
         {
           DoctorWhoCoreDbContext db = new DoctorWhoCoreDbContext();
-          fnCompanions(1);
-          fnEnemies(1);
-          ExecueteSP();
+            viewEpisodes();
+        }
+       public static void viewEpisodes()
+        {
+            
+           using(var db = new DoctorWhoCoreDbContext())
+            {
+                var episodes = db.viewEpisodes;
+                foreach (var item in episodes)
+                {
+                    Console.WriteLine($"AuthorName = {item.AuthorName} , DoctorName = {item.DoctorName}" +
+                                      $" , Enemies = {item.Enemies} , Companions = {item.Companions}");
+                                     
+                }
+
+            }
         }
        public static void fnCompanions(int EpisodeId)
         {
@@ -66,6 +79,7 @@ namespace DoctorWho
                     Console.WriteLine(item.Trim());
                 }
             }
+
         }
     }
 }
