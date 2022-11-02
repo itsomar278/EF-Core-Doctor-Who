@@ -16,7 +16,5 @@ namespace DoctorWho.Db
         Episode Episode { get; set; }
         public int EnemyId { get; set; }
         Enemy Enemy { get; set; }
-
-
     }
 }

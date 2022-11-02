@@ -198,5 +198,70 @@ namespace DoctorWho
                 db.SaveChanges();
             }
         }
+        public static void AddEnemyToEpisode(Enemy enemy , Episode episode)
+        {
+            using(var db = new DoctorWhoCoreDbContext())
+            {
+                if (!db.Episodes.Contains(episode))
+                    throw new ArgumentException("this episode dosent exist");
+                if (db.Enemies.Contains(enemy))
+                    throw new ArgumentException("this enemy dosent exist");
+                EnemyEpisode enemyEpisode = new EnemyEpisode
+                {
+                    EnemyId = enemy.EnemyId ,
+                    EpisodeId = episode.EpisodeId
+                };
+                db.EnemyEpisodes.Add(enemyEpisode);
+                db.SaveChanges();
+            }
+        }
+        public static void AddCompanionToEpisode(Episode episode , Companion companion)
+        {
+            using(var db = new DoctorWhoCoreDbContext())
+            {
+                if (!db.Episodes.Contains(episode))
+                    throw new ArgumentException("this episode dosent exist");
+                if (db.Companions.Contains(companion))
+                    throw new ArgumentException("this companion dosent exist");
+                CompanionEpisode companionEpisode = new CompanionEpisode
+                {
+                    CompanionId = companion.CompanionId,
+                    EpisodeId = episode.EpisodeId
+                };
+                db.CompanionsEpisodes.Add(companionEpisode);
+                db.SaveChanges();
+            }
+        }
+        public static Enemy GetEnemyById (int id)
+        {
+            using (var db = new DoctorWhoCoreDbContext())
+            {
+               var enemy = db.Enemies.Find(id);
+                if(enemy == null)
+                {
+                    throw new ArgumentException("There is no enemy with such id ");
+                }
+                return enemy;
+            }
+        }
+        public static Companion GetCompanionById(int id)
+        {
+            using (var db = new DoctorWhoCoreDbContext())
+            {
+                var companion = db.Companions.Find(id);
+                if (companion == null)
+                {
+                    throw new ArgumentException("There is no companion with such id ");
+                }
+                return companion;
+            }
+        }
+        public static ICollection<Doctor> GetAllDoctors()
+        {
+            using (var db = new DoctorWhoCoreDbContext())
+            {
+                return db.Doctors.ToList();
+            }
+        }
     }
 }
