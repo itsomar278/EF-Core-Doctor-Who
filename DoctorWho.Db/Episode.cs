@@ -12,8 +12,8 @@ namespace DoctorWho.Db
     {
         public Episode ()
         {
-            Companions = new List<Companion> ();
-            Enemies = new List<Enemy>();
+            CompanionEpisodes = new List<CompanionEpisode> ();
+            EnemyEpisodes = new List<EnemyEpisode>();
         }
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
@@ -28,7 +28,7 @@ namespace DoctorWho.Db
         public Author Author { get; set; }
         public int DoctorId { get; set; }
         public Doctor Doctor { get; set; }
-        public List<Companion> Companions { get; set; }
-        public List<Enemy> Enemies { get; set; }
+        public List<CompanionEpisode> CompanionEpisodes { get; set; }
+        public List<EnemyEpisode> EnemyEpisodes { get; set; }
     }
 }
